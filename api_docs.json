@@ -1,0 +1,224 @@
+{
+	"openapi": "3.0.2",
+	"info": {
+		"title": "Rest API GIN",
+		"version": "1.0",
+		"description": "Latihan Membuat Rest Api Dengan Framework GIN"
+	},
+	"servers": [{ "url": "http://localhost:5000/api" }],
+	"paths": {
+		"/products": {
+			"get": {
+				"tags": ["Products"],
+				"description": "Get All Products",
+				"summary": "Get All Products",
+				"responses": {
+					"200": {
+						"description": "Success Get All Products",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"products": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/product"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Products"],
+				"summary": "Create Product",
+				"description": "Create Product",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"nama_product": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success Create Product",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"product": {
+											"$ref": "#/components/schemas/product"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/products/{id}": {
+			"get": {
+				"tags": ["Products"],
+				"description": "Get Product By Id",
+				"summary": "Get Product By Id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Product Id"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success Get Product By Id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"product": {
+											"$ref": "#/components/schemas/product"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/message"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": ["Products"],
+				"description": "Update Product By Id",
+				"summary": "Update Product By Id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Product Id"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name_product": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/message"
+								}
+							}
+						}
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/message"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"description": "Delete Product By Id",
+				"summary": "Delete Product By Id",
+				"tags": ["Products"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Product Id"
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/message"
+								}
+							}
+						}
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/message"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"message": {
+				"type": "object",
+				"properties": {
+					"msg": {
+						"type": "string"
+					}
+				}
+			},
+			"product": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"nama_product": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}
